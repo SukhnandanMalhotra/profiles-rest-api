@@ -1,8 +1,11 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
+from rest_framework import viewsets
 from rest_framework.response import Response
-from . import serializers
 from rest_framework import status
+from . import serializers
+from . import models
+
 # Create your views here.
 class HelloAPIView(APIView):
     serializer_class=serializers.HelloSerializer
@@ -35,3 +38,8 @@ class HelloAPIView(APIView):
 
     def delete(self,request,pk=None):
         return Response({'method':'delete'})
+
+class UserProfileViewset(viewsets.ModelViewSet):
+
+    serializer_class = serializers.UserProfileSerializer
+    queryset = models.UserProfile.object.all()
